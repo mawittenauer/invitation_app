@@ -16,5 +16,5 @@ Rails.application.routes.draw do
   get '/rsvp/:token', to: 'invitations#rsvp', as: 'rsvp_invitation'
   patch '/rsvp/:token', to: 'invitations#update_rsvp'
   
-  root 'events#index'
+  root 'home#index'
 end
