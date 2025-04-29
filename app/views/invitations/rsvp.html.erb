@@ -1,0 +1,29 @@
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-header">
+      <h1 class="card-title">RSVP for <%= @event.title %></h1>
+    </div>
+    <div class="card-body">
+      <p><strong>Host:</strong> <%= @event.user.email %></p>
+      <p><strong>Date:</strong> <%= @event.start_time.strftime("%B %d, %Y at %I:%M %p") %></p>
+      <p><strong>Location:</strong> <%= @event.location %></p>
+      <p><strong>Description:</strong> <%= @event.description %></p>
+      
+      <% if @invitation.pending? %>
+        <div class="mt-4">
+          <p>Hi <%= @invitee.name %>, please let us know if you can attend:</p>
+          <%= form_with url: rsvp_invitation_path(@invitation.token), method: :patch, local: true do |f| %>
+            <div class="d-flex gap-2">
+              <%= f.submit 'Accept', name: 'status', value: 'accepted', class: 'btn btn-success' %>
+              <%= f.submit 'Decline', name: 'status', value: 'declined', class: 'btn btn-danger' %>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="alert alert-info">
+          You have <%= @invitation.status %> this invitation.
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
