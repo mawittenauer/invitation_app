@@ -1,0 +1,15 @@
+Hello <%= @invitee.name %>,
+
+You've been invited to <%= @event.title %>!
+
+EVENT DETAILS:
+--------------
+<%= @event.title %>
+When: <%= @event.start_time.strftime("%B %d, %Y at %I:%M %p") %> - <%= @event.end_time.strftime("%I:%M %p") %>
+Where: <%= @event.location %>
+<% if @event.description.present? %>Description: <%= @event.description %><% end %>
+
+Please let us know if you can make it by visiting this link:
+<%= @rsvp_url %>
+
+This invitation was sent using Invitation App.

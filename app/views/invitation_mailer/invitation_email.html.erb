@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .header {
+        background-color: #4a89dc;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        border-radius: 5px 5px 0 0;
+      }
+      .content {
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-top: none;
+        border-radius: 0 0 5px 5px;
+      }
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 10px 5px;
+        background-color: #4CAF50;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+      }
+      .button.decline {
+        background-color: #f44336;
+      }
+      .event-details {
+        margin: 20px 0;
+        padding: 15px;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+      }
+      .footer {
+        margin-top: 30px;
+        text-align: center;
+        font-size: 0.8em;
+        color: #777;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>You're Invited!</h1>
+    </div>
+    
+    <div class="content">
+      <p>Hello <%= @invitee.name %>,</p>
+      
+      <p><strong><%= @event.user.email %></strong> has invited you to <strong><%= @event.title %></strong>!</p>
+      
+      <div class="event-details">
+        <h3><%= @event.title %></h3>
+        <p><strong>When:</strong> <%= @event.start_time.strftime("%B %d, %Y at %I:%M %p") %> - 
+        <%= @event.end_time.strftime("%I:%M %p") %></p>
+        <p><strong>Where:</strong> <%= @event.location %></p>
+        
+        <% if @event.description.present? %>
+          <p><strong>Description:</strong> <%= @event.description %></p>
+        <% end %>
+      </div>
+      
+      <p>Please let us know if you can make it:</p>
+      
+      <div style="text-align: center;">
+        <a href="<%= @rsvp_url %>?status=accepted" class="button">Yes, I'll be there!</a>
+        <a href="<%= @rsvp_url %>?status=declined" class="button decline">Sorry, I can't make it</a>
+      </div>
+      
+      <p>Or you can visit this link to RSVP: <a href="<%= @rsvp_url %>"><%= @rsvp_url %></a></p>
+      
+      <div class="footer">
+        <p>This invitation was sent using Invitation App.</p>
+      </div>
+    </div>
+  </body>
+</html>
