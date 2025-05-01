@@ -1,24 +1,35 @@
-# README
+# Invitation App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A web application that allows users to create accounts, organize events, and send invitations.
 
-Things you may want to cover:
+## Technologies
 
-* Ruby version
+- Ruby 3.1.0
+- Rails 7.1.5
+- PostgreSQL (database)
 
-* System dependencies
+## Features
 
-* Configuration
+- User authentication and account management
+- Event creation and management
+- Invitation system for events
+- User dashboard
 
-* Database creation
+## Requirements
 
-* Database initialization
+- Ruby 3.1.0
+- Rails 7.1.5
+- PostgreSQL
+- Bundler
 
-* How to run the test suite
+## Installation
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+1. Clone the repository
+```bash
+git clone https://github.com/yourusername/invitation-app.git
+cd invitation-app
+bundle install
+rails db:create
+rails db:migrate
+rails server
+```
