@@ -8,7 +8,7 @@ class InvitationsController < ApplicationController
     
     if @invitee.persisted?
       @invitation = Invitation.create(event: @event, invitee: @invitee, status: 'pending')
-      send_invitation_sms(@invitation)
+      send_invitation(@invitation)
       redirect_to @event, notice: 'Invitation was sent successfully.'
     else
       redirect_to @event, alert: 'Failed to create invitation.'
@@ -34,16 +34,10 @@ class InvitationsController < ApplicationController
     params.require(:invitee).permit(:name, :phone_number, :email)
   end
   
-  def send_invitation_sms(invitation)
-    client = Twilio::REST::Client.new
+  def send_invitation(invitation)
     rsvp_url = rsvp_invitation_url(invitation.token)
-    
-    message = client.messages.create(
-      body: "You've been invited to #{invitation.event.title}! RSVP here: #{rsvp_url}",
-      from: ENV['TWILIO_PHONE_NUMBER'],
-      to: invitation.invitee.phone_number
-    )
-  rescue Twilio::REST::RestError => e
-    Rails.logger.error("Failed to send SMS: #{e.message}")
+    InvitationMailer.invitation_email(invitation, rsvp_url).deliver_now
+  rescue StandardError => e
+    Rails.logger.error("Failed to send invitation email: #{e.message}")
   end
 end

@@ -16,6 +16,7 @@ gem 'twilio-ruby'
 gem 'bootstrap', '~> 5.2.0'
 gem 'jquery-rails'
 gem 'sassc-rails'
+gem 'letter_opener'
 gem 'dotenv-rails', groups: [:development, :test]
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
